@@ -1,0 +1,392 @@
+/* Контейнер условия */
+.cond {
+    width: 100%;
+    padding: 32px 24px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(30, 42, 90, 0.06), 0 8px 24px rgba(30, 42, 90, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Легкий математический фон, чтобы выделить блок */
+    background-image: radial-gradient(circle at center, #f9fafc 0%, #fff 100%);
+}
+
+.equation-row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    font-family: 'Cambria Math', 'Georgia', serif;
+    font-size: 22px; /* Размер шрифта подогнан под картинку */
+    color: #1e2a5a;
+    line-height: 1.4;
+}
+
+/* Общие стили для математических элементов */
+.math-var {
+    font-style: italic; /* Переменные всегда курсивом */
+}
+
+.math-num, .math-op, .math-punct {
+    font-style: normal; /* Числа и операторы прямым */
+}
+
+.math-prime {
+    font-style: italic;
+    /* Запятая и штрихи чуть приподняты */
+    vertical-align: 0.1em; 
+}
+
+.math-func {
+    font-style: normal;
+    margin-left: 2px;
+}
+
+.math-op {
+    margin: 0 4px;
+    color: #4b5563; /* Операторы чуть светлее переменных для контраста */
+}
+
+.math-punct {
+    margin-left: 2px;
+}
+
+/* Блок с системой уравнений */
+.equation-system {
+    display: flex;
+    align-items: stretch; /* Растягиваем скобку */
+    gap: 12px;
+}
+
+/* Фигурная скобка (рисуем через CSS) */
+.system-brace {
+    width: 10px;
+    border-left: 2px solid #1e2a5a;
+    border-top: 2px solid #1e2a5a;
+    border-bottom: 2px solid #1e2a5a;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+    /* Немного скругляем углы, чтобы было похоже на LaTeX */
+    border-right: none;
+}
+
+/* Альтернативный вариант скобки через SVG (если хочешь идеал) */
+/* .system-brace {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 40' preserveAspectRatio='none'%3E%3Cpath d='M10,0 Q0,0 0,10 L0,30 Q0,40 10,40' fill='none' stroke='%231e2a5a' stroke-width='2'/%3E%3C/svg%3E");
+    background-size: 100% 100%;
+    width: 10px;
+} */
+
+.system-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.equation-cond {
+    white-space: nowrap;
+}
+
+/* Контейнер для шага h */
+.method-step {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px 17px;
+    background: #f7f8fc;
+    border: 1px solid #e5e8f0;
+    border-radius: 12px;
+    box-sizing: border-box;
+}
+
+.method-step-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.method-step-header p {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #1e2a5a;
+    margin: 0;
+}
+
+.method-step-header .math-var {
+    font-family: 'Cambria Math', Georgia, serif;
+    font-size: 18px;
+    font-style: italic;
+    font-weight: 600;
+    text-transform: none; /* Возвращаем курсив для h */
+    color: #3b5bdb;
+    margin-left: 4px;
+}
+
+/* Отображение текущего значения */
+.step-value {
+    font-family: 'Cambria Math', 'Consolas', monospace;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e2a5a;
+    background: #fff;
+    padding: 2px 8px;
+    border-radius: 6px;
+    border: 1px solid #e5e8f0;
+}
+
+/* --- Стилизация ползунка (Range) --- */
+
+/* Общие сбросы */
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    background: transparent;
+    cursor: pointer;
+    margin-top: 4px;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+/* Трек (линия) для Chrome/Safari/Edge */
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 6px;
+    background: #d8dce8;
+    border-radius: 999px;
+    /* Легкая внутренняя тень для эффекта углубления */
+    box-shadow: inset 0 1px 2px rgba(30, 42, 90, 0.1);
+}
+
+/* Ползунок (кружок) для Chrome/Safari/Edge */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 18px;
+    width: 18px;
+    border-radius: 50%;
+    background: #3b5bdb;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(30, 42, 90, 0.3);
+    margin-top: -6px; /* Выравнивание по центру трека (высота трека 6, кружка 18 -> (6-18)/2 = -6) */
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+input[type="range"]:hover::-webkit-slider-thumb {
+    transform: scale(1.15);
+    background: #2f4bc0;
+}
+
+input[type="range"]:active::-webkit-slider-thumb {
+    transform: scale(1);
+    background: #1e2a5a;
+}
+
+/* Трек (линия) для Firefox */
+input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 6px;
+    background: #d8dce8;
+    border-radius: 999px;
+    box-shadow: inset 0 1px 2px rgba(30, 42, 90, 0.1);
+}
+
+/* Ползунок (кружок) для Firefox */
+input[type="range"]::-moz-range-thumb {
+    height: 14px; /* Firefox немного иначе считает размеры рамки */
+    width: 14px;
+    border-radius: 50%;
+    background: #3b5bdb;
+    border: 2px solid #fff;
+    box-shadow: 0 1px 4px rgba(30, 42, 90, 0.3);
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+input[type="range"]:hover::-moz-range-thumb {
+    transform: scale(1.15);
+    background: #2f4bc0;
+}
+
+input[type="range"]:active::-moz-range-thumb {
+    transform: scale(1);
+    background: #1e2a5a;
+}
+
+/* Обновляем row-inputs, чтобы элементы стояли ровно и не сжимались */
+.row-inputs {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch; /* Растягиваем по высоте самого высокого блока */
+    justify-content: space-between; /* Распределяем по краям */
+    gap: 16px;
+    width: 100%;
+}
+
+/* Задаем фиксированную ширину или flex-basis для блоков, чтобы они были одинаковыми */
+.method-input, 
+.method-step {
+    flex: 1; /* Занимают равное пространство */
+    width: auto; /* Перебиваем старые 50% */
+}
+
+/* Блок кнопки */
+.solve-action {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Прижимаем кнопку к низу, если блоки выше */
+    min-width: 140px; /* Чтобы кнопка не была слишком узкой */
+}
+
+/* Стилизация самой кнопки */
+#solve-btn {
+    width: 100%;
+    height: 100%; /* Занимает всю высоту доступного блока */
+    min-height: 48px;
+    padding: 0 24px;
+    
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    
+    color: #fff;
+    background: #3b5bdb;
+    border: 1px solid #3b5bdb;
+    border-radius: 12px; /* Такой же радиус, как у инпутов */
+    cursor: pointer;
+    
+    box-shadow: 0 1px 2px rgba(30, 42, 90, 0.08);
+    transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease;
+}
+
+/* Состояния наведения и нажатия — строгие, без неона */
+#solve-btn:hover {
+    background: #2f4bc0;
+    border-color: #2f4bc0;
+    box-shadow: 0 4px 12px rgba(59, 91, 219, 0.24);
+}
+
+#solve-btn:active {
+    background: #1e2a5a;
+    border-color: #1e2a5a;
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+#solve-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 91, 219, 0.3);
+}
+
+/* Состояние отключенной кнопки (на случай, если не выбран метод) */
+#solve-btn:disabled {
+    background: #e5e8f0;
+    border-color: #e5e8f0;
+    color: #9ca3af;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Контейнер для позиционирования */
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    pointer-events: none; /* Чтобы контейнер не блокировал клики, когда пуст */
+}
+
+/* Сама плашка */
+.toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    min-width: 300px;
+    max-width: 450px;
+    padding: 16px 20px;
+    background: #fff;
+    border: 1px solid #e5e8f0;
+    border-left: 4px solid #3b5bdb; /* Акцентная полоса слева */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(30, 42, 90, 0.08), 0 12px 32px rgba(30, 42, 90, 0.12);
+    
+    /* Начальное состояние (скрыто) */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(16px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+    
+    pointer-events: auto; /* Возвращаем клики для самой плашки */
+}
+
+/* Класс для показа плашки */
+.toast.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Контент плашки */
+.toast-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    flex: 1;
+}
+
+/* Иконка предупреждения */
+.toast-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    background: #3b5bdb;
+    color: #fff;
+    font-family: 'Cambria Math', Georgia, serif;
+    font-size: 16px;
+    font-weight: 700;
+    border-radius: 50%;
+    margin-top: -2px;
+}
+
+/* Текст сообщения */
+.toast-message {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1e2a5a;
+    margin: 0;
+}
+
+/* Кнопка закрытия */
+.toast-close {
+    flex-shrink: 0;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    line-height: 1;
+    color: #6b7280;
+    cursor: pointer;
+    padding: 0 4px;
+    margin-top: -2px;
+    transition: color 0.15s ease;
+}
+
+.toast-close:hover {
+    color: #1e2a5a;
+}
+
+/* Модификатор для ошибок (красный акцент, если нужно) */
+.toast.toast-error {
+    border-left-color: #e11d48;
+}
+.toast.toast-error .toast-icon {
+    background: #e11d48;
+}

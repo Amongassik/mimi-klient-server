@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/mechanic/css/mechanic.css"/>
+    <link rel="stylesheet" href="/opt/css/uncorextr.css" />
+    <title>МКР и МКЭ</title>
+</head>
+<body>
+    
+    <header>
+        <p class="main-title">Задание 1</p>
+        <p class="under-title">Методы вычислительной механики</p>
+        <p class="label">Метод конечных разностей</p>
+        <p class="label">Метод конечных элементов</p>
+        <p><a href="/">На главную</a></p>
+    </header>
+
+    <div class="toast-container" id="toast-container">
+        <div class="toast" id="toast">
+            <div class="toast-content">
+                <span class="toast-icon">!</span>
+                <p class="toast-message" id="toast-message"></p>
+            </div>
+            <button class="toast-close" id="toast-close" aria-label="Закрыть">×</button>
+        </div>
+    </div>
+
+    <div class="context">
+        <div class="cond">
+            <div class="equation-row">
+                <div class="equation-main">
+                    <span class="math-var">y</span>
+                    <span class="math-var math-prime">″</span>
+                    <span class="math-op">+</span>
+                    <span class="math-num">1,5</span>
+                    <span class="math-var">y</span>
+                    <span class="math-var math-prime">′</span>
+                    <span class="math-op">−</span>
+                    <span class="math-var">xy</span>
+                    <span class="math-op">=</span>
+                    <span class="math-num">0,5</span>
+                </div>
+
+                <div class="equation-system">
+                    <div class="system-brace"></div>
+                    <div class="system-content">
+                        <div class="equation-cond">
+                            <span class="math-op">−</span>
+                            <span class="math-var math-prime">y′</span>
+                            <span class="math-func">(1,3)</span>
+                            <span class="math-op">+</span>
+                            <span class="math-num">2</span>
+                            <span class="math-var">y</span>
+                            <span class="math-func">(1,3)</span>
+                            <span class="math-op">=</span>
+                            <span class="math-num">1</span>
+                        </div>
+                        <div class="equation-cond">
+                            <span class="math-var">y</span>
+                            <span class="math-func">(1,6)</span>
+                            <span class="math-op">=</span>
+                            <span class="math-num">3</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="person-inputs">
+            <div class="row-inputs">
+                <div class="method-input">
+                    <p>Выберете метод</p>
+                    <ul class="method-menu">
+                        <li class="method-menu-item">
+                            <input class="radio" type="radio" name="radio-method" id="0"></input>
+                            <label for="0">МКР</label>
+                        </li>
+
+                        <li class="method-menu-item">
+                            <input class="radio" type="radio" name="radio-method" id="1"></input>
+                            <label for="1">МКЭ</label>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div class="method-step">
+                    <div class="method-step-header">
+                        <p>Шаг разбиения <span class="math-var">h</span></p>
+                        <span class="step-value" id="h-value-display">0.01</span>
+                    </div>
+                    <input type="range" id="h-range" min="1" max="100" value="1" step="1">
+                </div>
+
+            </div>
+
+            <div class="solve-action">
+                <button id="solve-btn" type="button">Решить</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/mechanic/js/num_one.js"></script>
+<script src="/mechanic/js/range.js"></script>
+</html>

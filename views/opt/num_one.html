@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/opt/css/uncorextr.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Безусловный экстремум</title>
+</head>
+<body>
+    <header>
+        <p class="main-title">Задание 1</p>
+        <p class="under-title">Безусловные экстремумы</p>
+        <p class="label">Метод Градиентого спуска</p>
+        <p class="label">Метод наискорейшего спуска</p>
+        <p class="label">Метод Гаусса-Зейделя</p>
+        <p class="label">Метод Флейчера-Ривса</p>
+        <p><a href="/">На главную</a></p>
+    </header>
+    
+    <!--#-->
+    <div class="context">
+        <div class="person-inputs">
+            <div class="input-func">
+                <p class="main-label">Введите функцию</p>
+                <div>
+                    <span>f(x)=</span>
+                    <input id="func-str" value="-2x1^2-5x2^2-2x3^2+2x1x2-x2x3+8x3"/>
+                </div>
+            </div>
+            
+            <!--#-->
+            <div class="row-inputs">
+                <div class="method-input">
+                    <p>Выберете метод оптимизации</p>
+                    <ul class="method-menu">
+                        <li class="method-menu-item">
+                            <input class="radio" type="radio" name="radio-method" id="0"></input>
+                            <label>Метод Градиентого спуска</label>
+                        </li>
+
+                        <li class="method-menu-item">
+                            <input class="radio" type="radio" name="radio-method" id="1"></input>
+                            <label>Метод наискорейшего спуска</label>
+                        </li>
+
+                        <li class="method-menu-item">
+                            <input class="radio" type="radio" name="radio-method" id="2"></input>
+                            <label>Метод Гаусса-Зейделя</label>
+                        </li>
+
+                        <li class="method-menu-item">
+                            <input class="radio" type="radio" name="radio-method" id="3"></input>
+                            <label>Метод Флейчера-Ривса</label>
+                        </li>
+                    </ul>
+                </div>
+
+                <!--#-->
+                <div class="instant-point">
+                    <p class="main-label">Выберете начальную точку</p>
+                    <div class="input-coords">
+                        <span>x1
+                            <input type="number" name="" id="instantsCoord1">
+                        </span>
+                        <span>x2
+                            <input type="number" name="" id="instantsCoord2">
+                        </span>
+                        <span>x3
+                            <input type="number" name="" id="instantsCoord3">
+                        </span>
+                    </div>
+                    <div class="generate-coords">
+                        <p class="main-label">Сгенерировать точку</p>
+                        <p class="label">Диапозон генерации: [-100;100]</p>
+                        <input type="checkbox" name="" id="isCoordsGenerate">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row-inputs">
+                <p class="warning" style="color: red;"></p>
+                <button type="submit" id="solve-btn">Решить</button>
+            </div>
+
+        </div>
+
+        <div class="answer-container">
+            <div class="answer-values">
+                <div class="value-func" id="func-value">
+                    <span>Значение функции: </span>
+                </div>
+
+                <div class="x-value">
+                    <span>Точка максимума: </span>
+                    <div class="vector" id="x-value">
+
+                    </div>
+
+                </div>
+            </div>
+
+            <h2>График сходимости</h2>
+            <div class="chart-container">
+                <canvas id="conv-chart"></canvas>
+            </div>
+
+            <h2>Итерации <span id="iter-count"></span></h2>
+            <div class="iterations">
+
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="/opt/js/uncoextr.js"></script>
+</html>
