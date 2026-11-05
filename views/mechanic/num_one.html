@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="/style.css" />
     <link rel="stylesheet" href="/mechanic/css/mechanic.css"/>
     <link rel="stylesheet" href="/opt/css/uncorextr.css" />
+    <link rel="stylesheet" href="/chart.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>МКР и МКЭ</title>
 </head>
 <body>
@@ -100,6 +102,13 @@
             <div class="solve-action">
                 <button id="solve-btn" type="button">Решить</button>
             </div>
+        </div>
+    </div>
+
+    <div class="answer-container" id="answer-container" style="display: none;">
+        <h2>График решения</h2>
+        <div class="chart-container">
+            <canvas id="solution-chart"></canvas>
         </div>
     </div>
 </body>

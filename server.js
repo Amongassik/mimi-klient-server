@@ -2,6 +2,9 @@ import express from 'express'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { MethodManager } from './opt/uncor/manager.js'
+import { solveMKR } from './mechanik/sde/dif.js'
+import { solveMKE } from './mechanik/sde/element.js'
+import { error } from 'console'
 
 /**
  * @typedef {{coords:number[], func:string, method:'grad' | 'fast' | 'gauss' | 'fletcher'}} UnConExtrBody
@@ -93,7 +96,33 @@ app.get('/mechanick/mkrOrmke', (req, res) => {
 })
 
 app.post('/api/mechanick/sde', (req, res) => {
-  res.json(req.body)
+  const {method, step} = req.body
+
+  try {
+    let result
+
+    switch (method) {
+      case 'mkr':
+        result = solveMKR(step)
+        break
+      case 'mke':
+        result = solveMKE(step)
+        break
+      default:
+        return res.status(400).json({
+          error:`Error ${method}`
+        })
+    }
+
+    res.json({
+      data: result
+    })
+  }catch(error){
+    res.status(500).json({
+      error: 'Ошибка при вычислении', 
+      details: error.message 
+    })
+  }
 })
 
 app.listen(PORT, () => {

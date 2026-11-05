@@ -50,7 +50,7 @@ export const Conditions = {
      * @type {Dirichle}
      */
     rightBound: {
-        type: 'Dirichle',
+        type: 'Dirichlet',
         value: 3
     }
 }

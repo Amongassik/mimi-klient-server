@@ -5,11 +5,16 @@
 import { Conditions } from "./cond.js";
 import { TriagonalSolver } from "./run-through.js";
 
+/**
+ * 
+ * @param {number} h 
+ * @returns {{X:number[],Y:number[]}}
+ */
 export function solveMKR(h) {
     const a = Conditions.start
     const b = Conditions.end
 
-    const n = (b - a) / h
+    const n = Math.round((b - a) / h)
     const X = []
 
     for (let i = 0; i <= n; i++){
