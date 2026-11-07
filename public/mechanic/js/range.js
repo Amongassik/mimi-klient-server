@@ -26,3 +26,29 @@ document.addEventListener('DOMContentLoaded',() => {
         updateHValue(e.target.value)
     })
 })
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // --- Ползунок n (по x) ---
+    const nRange = document.getElementById('n-range');
+    const nDisplay = document.getElementById('n-value-display');
+
+    if (nRange && nDisplay) {
+        // При изменении ползунка просто берем его значение
+        nRange.addEventListener('input', (e) => {
+            nDisplay.textContent = e.target.value;
+        });
+    }
+
+    // --- Ползунок m (по t) ---
+    const mRange = document.getElementById('m-range');
+    const mDisplay = document.getElementById('m-value-display');
+
+    if (mRange && mDisplay) {
+        // Аналогично для m
+        mRange.addEventListener('input', (e) => {
+            mDisplay.textContent = e.target.value;
+        });
+    }
+});

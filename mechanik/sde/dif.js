@@ -3,7 +3,7 @@
  */
 
 import { Conditions } from "./cond.js";
-import { TriagonalSolver } from "./run-through.js";
+import { TriagonalSolver } from "../run-through.js";
 
 /**
  * 

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/mechanic/css/mechanic.css"/>
+    <link rel="stylesheet" href="/opt/css/uncorextr.css" />
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+    <title>МКР и МКЭ - Задание 2</title>
+</head>
+<body>
+    
+    <header>
+        <p class="main-title">Задание 2</p>
+        <p class="under-title">Методы вычислительной механики</p>
+        <p class="label">Неявная конечно-разностная схема</p>
+        <p><a href="/">На главную</a></p>
+    </header>
+
+    <!-- Плашка уведомлений -->
+    <div class="toast-container" id="toast-container">
+        <div class="toast" id="toast">
+            <div class="toast-content">
+                <span class="toast-icon">!</span>
+                <p class="toast-message" id="toast-message"></p>
+            </div>
+            <button class="toast-close" id="toast-close" aria-label="Закрыть">×</button>
+        </div>
+    </div>
+
+    <div class="context">
+        <!-- Условие задачи -->
+        <div class="cond">
+            <div class="task-title">
+                <p>Задание №2. Составить алгоритм и программу на ЭВМ численного решения начально-краевой задачи с помощью неявной конечно-разностной схемы</p>
+            </div>
+
+            <div class="equation-row">
+                <!-- Уравнение -->
+                <div class="equation-main">
+                    <span class="math-frac">
+                        <span class="numerator">∂<span class="math-var">u</span></span>
+                        <span class="denominator">∂<span class="math-var">t</span></span>
+                    </span>
+                    <span class="math-op">=</span>
+                    <span class="math-var">a</span><sup class="math-sup">2</sup>
+                    <span class="math-frac">
+                        <span class="numerator">∂<sup>2</sup><span class="math-var">u</span></span>
+                        <span class="denominator">∂<span class="math-var">x</span><sup>2</sup></span>
+                    </span>
+                </div>
+
+                <!-- Схема сетки -->
+                <div class="grid-scheme">
+                    <div class="grid-line">
+                        <span class="grid-node"><span class="math-var">i</span>,<span class="math-var">k</span>=0</span>
+                        <span class="grid-node">1</span>
+                        <span class="grid-node">2</span>
+                        <span class="grid-node">3</span>
+                        <span class="grid-dots">...</span>
+                        <span class="grid-node"><span class="math-var">n</span>−1</span>
+                        <span class="grid-node"><span class="math-var">n</span></span>
+                    </div>
+                    <div class="grid-arrow">⟶</div>
+                    <div class="grid-label"><span class="math-var">h</span>, <span class="math-var">τ</span></div>
+                </div>
+            </div>
+
+            <!-- Система и параметры -->
+            <div class="system-wrapper">
+                <div class="equation-system">
+                    <div class="system-brace"></div>
+                    <div class="system-content">
+                        <div class="equation-cond">
+                            <span class="math-var">α</span><sub>1</sub>
+                            <span class="math-frac-inline">
+                                <span class="numerator">∂<span class="math-var">u</span>(0,<span class="math-var">t</span>)</span>
+                                <span class="denominator">∂<span class="math-var">x</span></span>
+                            </span>
+                            <span class="math-op">+</span>
+                            <span class="math-var">β</span><sub>1</sub><span class="math-var">u</span>(0,<span class="math-var">t</span>)
+                            <span class="math-op">=</span>
+                            <span class="math-var">φ</span><sub>1</sub>(<span class="math-var">t</span>)
+                        </div>
+                        <div class="equation-cond">
+                            <span class="math-var">α</span><sub>2</sub>
+                            <span class="math-frac-inline">
+                                <span class="numerator">∂<span class="math-var">u</span>(<span class="math-var">L</span>,<span class="math-var">t</span>)</span>
+                                <span class="denominator">∂<span class="math-var">x</span></span>
+                            </span>
+                            <span class="math-op">+</span>
+                            <span class="math-var">β</span><sub>2</sub><span class="math-var">u</span>(<span class="math-var">L</span>,<span class="math-var">t</span>)
+                            <span class="math-op">=</span>
+                            <span class="math-var">φ</span><sub>2</sub>(<span class="math-var">t</span>)
+                        </div>
+                        <div class="equation-cond">
+                            <span class="math-var">u</span>(<span class="math-var">x</span>,0)
+                            <span class="math-op">=</span>
+                            <span class="math-var">ψ</span>(<span class="math-var">x</span>)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="params-system">
+                    <div class="equation-cond"><span class="math-var">φ</span><sub>1</sub>(<span class="math-var">t</span>) = 10<span class="math-var">t̄</span></div>
+                    <div class="equation-cond"><span class="math-var">φ</span><sub>2</sub>(<span class="math-var">t</span>) = 10<sup>2</sup><span class="math-var">t̄</span><sup>2</sup></div>
+                    <div class="equation-cond"><span class="math-var">ψ</span>(<span class="math-var">x</span>) = <span class="math-frac-inline">
+                        <span class="numerator"><span class="math-var">x</span></span>
+                        <span class="denominator"><span class="math-var">L</span></span>
+                    </span><span class="math-var">e</span><sup>−<span class="math-var">x</span>/<span class="math-var">L</span></sup></div>
+                    <div class="equation-cond"><span class="math-var">t̄</span> = <span class="math-frac-inline">
+                        <span class="numerator"><span class="math-var">t</span></span>
+                        <span class="denominator"><span class="math-var">t</span><sub>кон</sub></span>
+                    </span></div>
+                </div>
+
+                <div class="params-system">
+                    <div class="equation-cond"><span class="math-var">a</span><sup>2</sup> = 10<sup>−1</sup></div>
+                    <div class="equation-cond"><span class="math-var">L</span> = 0,5 м</div>
+                    <div class="equation-cond"><span class="math-var">t</span><sub>кон</sub> = 10 с</div>
+                    <div class="equation-cond"><span class="math-var">α</span><sub>1</sub> = −0,1, <span class="math-var">β</span><sub>1</sub> = 0,3</div>
+                    <div class="equation-cond"><span class="math-var">α</span><sub>2</sub> = 1, <span class="math-var">β</span><sub>2</sub> = 0,2</div>
+                    <div class="equation-cond param-note"><span class="math-var">h</span>, <span class="math-var">τ</span> - параметры разбиения по переменным <span class="math-var">x</span> и <span class="math-var">t</span>.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Блок ввода -->
+        <div class="person-inputs">
+            <div class="row-inputs">
+
+                                <!-- Ползунок n (деления по x) -->
+                <div class="method-step">
+                    <div class="method-step-header">
+                        <p>Число шагов по <span class="math-var">x</span> (<span class="math-var">n</span>)</p>
+                        <span class="step-value" id="n-value-display">100</span>
+                    </div>
+                    <input type="range" id="n-range" min="100" max="1000" value="100" step="50">
+                </div>
+
+                <!-- Ползунок m (деления по t) -->
+                <div class="method-step">
+                    <div class="method-step-header">
+                        <p>Число шагов по <span class="math-var">t</span> (<span class="math-var">m</span>)</p>
+                        <span class="step-value" id="m-value-display">100</span>
+                    </div>
+                    <input type="range" id="m-range" min="100" max="1000" value="100" step="50">
+                </div>
+
+            </div>
+
+            <div class="solve-action">
+                <button id="solve-btn" type="button">Решить</button>
+            </div>
+
+            <div id="plot-3d" style="width: 100%; height: 600px; margin-top: 30px;"></div>
+        </div>
+    </div>
+
+</body>
+<script src="/mechanic/js/num_two.js"></script>
+<script src="/mechanic/js/range.js"></script>
+</html>

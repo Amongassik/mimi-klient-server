@@ -4,8 +4,7 @@ import { fileURLToPath } from 'url'
 import { MethodManager } from './opt/uncor/manager.js'
 import { solveMKR } from './mechanik/sde/dif.js'
 import { solveMKE } from './mechanik/sde/element.js'
-import { error } from 'console'
-
+import { solveScheme } from './mechanik/compute/scheme.js'
 /**
  * @typedef {{coords:number[], func:string, method:'grad' | 'fast' | 'gauss' | 'fletcher'}} UnConExtrBody
  */
@@ -118,6 +117,28 @@ app.post('/api/mechanick/sde', (req, res) => {
       data: result
     })
   }catch(error){
+    res.status(500).json({
+      error: 'Ошибка при вычислении', 
+      details: error.message 
+    })
+  }
+})
+
+app.get('/mechanick/scheme', (req, res) => {
+  res.sendFile(path.join(views, 'mechanic', 'num_two.html'))
+})
+
+app.post('/api/mechanic/scheme', (req, res) => {
+  const {stepX, stepT } = req.body
+
+  try {
+    let result = solveScheme(stepX,stepT)
+
+    res.json({
+      data:result,
+    })
+
+  }catch(error) {
     res.status(500).json({
       error: 'Ошибка при вычислении', 
       details: error.message 

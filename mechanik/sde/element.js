@@ -2,7 +2,7 @@
  * Метод конечных элементов (МКЭ)
  */
 import { Conditions } from "./cond.js";
-import { TriagonalSolver } from "./run-through.js";
+import { TriagonalSolver } from "../run-through.js";
 
 // --- Вспомогательные функции ---
 const matScalar = (A, x) => A.map(row => row.map(el => el * x));
